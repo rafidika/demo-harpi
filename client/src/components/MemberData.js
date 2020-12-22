@@ -25,33 +25,36 @@ function MemberData() {
     return (
         <Fragment>
             <div className="container">
-                <h2>Members</h2>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Tanggal Lahir</th>
-                            <th>Domisili</th>
-                            <th>Bukti Transfer</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {members ? members.map(member => (
-                            <tr>
-                                <td>{member.nama}</td>
-                                <td>{member.email}</td>
-                                <td>{member.tanggal.split("T")[0]}</td>
-                                <td>{member.domisili}</td>
-                                <td><img style={{width: '100%'}} src={member.path}/></td>
-                                <td><button className="btn btn-primary">Verfikasi</button></td>
-                                <td><button className="btn btn-danger">Hapus</button></td>
-                            </tr>
-                        )) : <h1>Empty</h1>}
-                    </tbody>
-                </table>
+                <br />
+                <h2>Daftar Anggota</h2>
+                <hr />
+                {members ? (
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>No. HP</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Domisili</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {members.map(member => (
+                                    (member.verified) && (
+                                        <tr key={member.id}>
+                                            <td>{member.nama}</td>
+                                            <td>{member.email}</td>
+                                            <td>{member.hp}</td>
+                                            <td>{member.tanggal.split("T")[0]}</td>
+                                            <td>{member.domisili}</td>
+                                        </tr>
+                                    )
+                                ))}
+                            </tbody>
+                        </table>
+                ) : <h2>Loading...</h2>}
+                
             </div>
         </Fragment>
     )

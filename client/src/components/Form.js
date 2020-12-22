@@ -4,6 +4,7 @@ import Axios from 'axios'
 const Form = () => {
     const [NamaLengkap, setNama] = useState("");
     const [Email, setEmail] = useState("");
+    const [NoHp, setNoHp] = useState("");
     const [TanggalLahir, setTanggal] = useState("1970-01-01");
     const [Domisili, setDomisili] = useState("Banten");
     const [ImgName, setImgName] = useState("");
@@ -26,16 +27,18 @@ const Form = () => {
             formData.append('ImgName', ImgName);
             formData.append('Domisili', Domisili);
             formData.append('TanggalLahir', TanggalLahir);
+            formData.append('NoHp', NoHp);
             formData.append('Email', Email);
             formData.append('NamaLengkap', NamaLengkap);
+            formData.append('Verified', false);
 
-            const res = await Axios.post('http://localhost:8080/', formData, {
+            await Axios.post('http://localhost:8080/', formData, {
                 headers: {
                     "Content-Type":"multipart/form-data"
                 }
             })
 
-            console.log(formData);
+            window.location("/");
         } catch (err) {
             console.error(err.message)
         }
@@ -70,6 +73,10 @@ const Form = () => {
                         <label htmlFor="email">Email*</label>
                         <br />
                         <input type="email" required name="Email" id="email" value={Email} onChange={e => setEmail(e.target.value)}/>
+                        <br />
+                        <label htmlFor="email">Nomor HP*</label>
+                        <br />
+                        <input type="number" required name="NoHp" id="email" value={NoHp} onChange={e => setNoHp(e.target.value)}/>
                         <br />
                         <label htmlFor="tanggal">Tanggal lahir*</label>
                         <br />

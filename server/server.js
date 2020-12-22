@@ -10,6 +10,7 @@ app.use(fileUpload());
 app.use(express.json());
 
 // Routes
+// Add new member
 app.post('/', async(req, res) => {
     try {
         if (req.files) {
@@ -20,12 +21,12 @@ app.post('/', async(req, res) => {
                     return res.status(500).send(err);
                 }
             })
-            const { NamaLengkap, Email, TanggalLahir, Domisili } = req.body;
+            const { NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified } = req.body;
             const path = `./public/uploads/${file.name}`;
             // await pool.query("SELECT * FROM members", function(err, result) {
             //     console.log(result);
             // });
-            await pool.query("INSERT INTO members (nama, email, tanggal, domisili, buktitrf) VALUES($1, $2, $3, $4, $5) RETURNING *",[NamaLengkap, Email, TanggalLahir, Domisili, path]);
+            await pool.query("INSERT INTO members (nama, email, hp, tanggal, domisili, buktitrf, verified) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",[NamaLengkap, Email, NoHp, TanggalLahir, Domisili, path, Verified]);
         } else {
             res.status(400).send(console.log("No file uploaded!"));
         }
@@ -34,10 +35,43 @@ app.post('/', async(req, res) => {
     }
 });
 
+// Add members list
 app.get('/admin', async(req, res) => {
     try {
         const allMembers = await pool.query("SELECT * FROM members;");
         res.send(allMembers.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+// Get a member
+app.get('/admin/:id', async(req,res) => {
+    try {
+        const { id } = req.params;
+        const members = await pool.query("SELECT * FROM members WHERE id = $1;", [id]);
+
+        res.send(members.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+// Verify a member
+app.put('/admin/:id', async(req,res) => {
+    try {
+        const updateMember = await pool.query("UPDATE members SET buktitrf = NULL, verified = TRUE WHERE id = $1;", [req.params.id])
+        res.send(console.log("Member verified."));
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+// Delete a member
+app.delete('/admin/:id', async(req, res) => {
+    try {
+        const deleteMember = await pool.query("DELETE FROM members WHERE id = $1", [req.params.id]);
+        res.send(console.log("Member deleted."));
     } catch (err) {
         console.error(err.message);
     }
