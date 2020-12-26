@@ -8,7 +8,7 @@
 
 form {
     margin: auto;
-    height: 80%;
+    height: 50%;
     width: 60%;
 }
 
@@ -33,7 +33,7 @@ form {
     text-align: right;
 }
 
-#nama, #email, #tanggal, #domisili, #telepon {
+#username, #password {
     border: 0.1em solid black;
     border-radius: 0.5em;
     font-size: 1em;
@@ -41,17 +41,12 @@ form {
     height: 2em;
 }
 
-#buktitrf {
-    border-color: black;
-    width: 100%;
-}
-
 #copyright {
     font-size: 0.5em;
     text-align: center;
 }
 
-#kirim {
+#masuk {
     width: 100%;
     background-color: #477D46;
     color: white;
@@ -76,18 +71,4 @@ label {
     position: relative;
     padding-top: 65%;
     padding-right: 5%;
-}
-
-.col-9 {
-    padding-top: 5%;
-}
-
-.col-9 h3 {
-    font-size: 0.9em;
-    text-align: left;
-}
-
-.col-9 p {
-    font-size: 0.6em;
-    text-align: left;
 }

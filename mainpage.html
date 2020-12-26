@@ -11,42 +11,51 @@
     <!-- Link to Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&family=Titillium+Web&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
     <!-- Title Page -->
     <title>Pendaftaran Anggota Baru | HARPI MELATI</title>
 
     <!-- Link to CSS File -->
-    <link href="src/mainpage.css" rel="stylesheet" type="text/css">
+    <link href="src/mainpage.css" rel="stylesheet" type="text/css" class="css">
+
+    <!-- Link to JS File -->
+    <script src="src/mainpage.js"></script>
 
     <!-- Page Icon -->
     <link href="src/logo-white.png" rel="icon" type="image/icon">
   </head>
   <body>
-    <div class="container">
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row min-vw-100 min-vh-100">
             <!-- Bagian ijo gede kek sign in page six lol. sampingnya form pokoknya -->
-            <div class="col-lg-7" id="rest">
+            <div class="col-xl-7" id="rest">
               <div class="row">
-                <div class="col-lg-3">
-
+                <div class="col-3 col-xl-3" id="logo">
+                  <img src="src/logo-transparent.png" class="img-fluid" alt="Logo HARPI MELATI">
                 </div>
-                <div class="col-lg-9">
-
+                <div class="col-9 col-xl-9" id="himpunan">
+                  <h3>HARPI MELATI</h3>
+                  <p>Himpunan Perias Pengantin Indonesia "MELATI"</p>
                 </div>
               </div>
             </div>
             <!-- Bagian Form Pendaftaran -->
-            <div class="col-lg-5" id="form">
+            <div class="col-xl-5 d-flex justify-content-center align-items-center" id="form">
                 <form method="POST">
-                  <p>Pendaftaran Anggota Baru</p>
-                  <br><br>
+                  <p id="title">Pendaftaran Anggota Baru</p>
+                  <br>
                   <label for="nama">Nama Lengkap*</label><br>
                   <input type="text" required name="NamaLengkap" id="nama">
                   <br><br>
                   <label for="email">Email*</label><br>
                   <input type="email" required name="Email" id="email">
                   <br><br>
-                  <label for="tanggal">Tanggal lahir*</label><br>
+                  <label for="telepon">Nomor HP/Telepon*</label>
+                  <input type="tel" required name="NoTelepon" id="telepon">
+                  <br><br>
+                  <label for="tanggal">Tanggal Lahir*</label><br>
                   <input type="date" name="TanggalLahir" id="tanggal" value="1970-01-01" required>
                   <br><br>
                   <label for="domisili">Domisili*</label><br>
@@ -74,7 +83,9 @@
                   <label for="buktitrf">Upload Bukti Transfer*</label><br>
                   <input type="file" accept="image/*" id="buktitrf">
                   <br><br>
-                  <input type="submit" value="Kirim">
+                  <input type="submit" value="Kirim" id="kirim">
+                  <br><br>
+                  <p id="copyright">Copyright 2020 Himpunan Perias Pengantin Indonesia "MELATI"</p>
                 </form>
             </div>
         </div>

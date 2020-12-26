@@ -77,17 +77,3 @@ label {
     padding-top: 65%;
     padding-right: 5%;
 }
-
-.col-9 {
-    padding-top: 5%;
-}
-
-.col-9 h3 {
-    font-size: 0.9em;
-    text-align: left;
-}
-
-.col-9 p {
-    font-size: 0.6em;
-    text-align: left;
-}
