@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const pool = require('./regist_db');
 const fileUpload = require('express-fileupload');
+const bcrypt = require('bcrypt');
 const app = express();
 
 // Middleware
@@ -22,7 +23,7 @@ app.post('/', async(req, res) => {
                 }
             })
             const { NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified } = req.body;
-            const path = `./public/uploads/${file.name}`;
+            const path = `/uploads/${file.name}`;
             // await pool.query("SELECT * FROM members", function(err, result) {
             //     console.log(result);
             // });
@@ -77,6 +78,35 @@ app.delete('/admin/:id', async(req, res) => {
     }
 })
 
+// Admin sign in
+app.post('/signin', async(req, res) => {
+    try {
+        const admin = await pool.query("SELECT email FROM admins WHERE username = $1", [req.body.Username]);
+        const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
+        await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
+            if (result) {
+                res.send(true);
+            } else {
+                res.send(false);
+            }
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+app.post('/45jPyQvLRE', async (req, res) => {
+    try {
+        const { Nama, Username, Email } = req.body;
+        const hash = await bcrypt.hash(req.body.Password, 15);
+        await pool.query("INSERT INTO admins (name_adm, username, email) VALUES($1, $2, $3) RETURNING *",[Nama, Username, Email]);
+        await pool.query("INSERT INTO login (hash, email) VALUES($1, $2) RETURNING *",[hash, Email]);
+        res.status(200).send(console.log("Registration success"));
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(console.log("Something went wrong"));
+    }
+})
 
 app.listen(8080, () => {
     console.log("Listening on port 8080...");

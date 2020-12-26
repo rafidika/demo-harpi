@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
+import Bukti from './Bukti'
 
 const NewMembers = () => {
     const [members, setMembers] = useState("");
@@ -73,10 +74,8 @@ const NewMembers = () => {
                                             <td>{member.tanggal.split("T")[0]}</td>
                                             <td>{member.domisili}</td>
                                             <td>
-                                                <img 
-                                                    style={{width: '100%'}} 
-                                                    src={member.path} 
-                                                    alt="Bukti transfer"/>
+                                                <Bukti img={member.buktitrf} />
+                                                {/* <p>{member.buktitrf}</p> */}
                                             </td>
                                             <td>
                                                 <button 
@@ -84,6 +83,7 @@ const NewMembers = () => {
                                                     onClick={() => verifMember(member.id)}>
                                                         Verfikasi
                                                 </button>
+
                                             </td>
                                             <td>
                                                 <button 

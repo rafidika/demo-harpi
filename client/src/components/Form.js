@@ -36,9 +36,7 @@ const Form = () => {
                 headers: {
                     "Content-Type":"multipart/form-data"
                 }
-            })
-
-            window.location("/");
+            }).then(window.location.href = "http://localhost:3000/");
         } catch (err) {
             console.error(err.message)
         }
