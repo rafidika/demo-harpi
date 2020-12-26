@@ -1,15 +1,13 @@
 import React from 'react'
 import NewMembers from './NewMembers'
 import MemberData from './MemberData'
+import Navbar from './Navbar'
 
 export default function Main( {onRouteChange} ) {
     return (
         <div>
-            <button 
-                className="btn btn-primary" 
-                onClick={() => onRouteChange(false)}>
-                    Keluar
-            </button>
+            <Navbar onRouteChange={onRouteChange}/>
+            <br /><br/>
             <NewMembers />
             <MemberData />
         </div>

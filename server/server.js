@@ -82,16 +82,19 @@ app.delete('/admin/:id', async(req, res) => {
 app.post('/signin', async(req, res) => {
     try {
         const admin = await pool.query("SELECT email FROM admins WHERE username = $1", [req.body.Username]);
-        const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
-        await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
-            if (result) {
-                res.send(true);
-            } else {
-                res.send(false);
-            }
-        });
+        if (admin) {
+            const user = await pool.query("SELECT * FROM login WHERE email = $1", [admin.rows[0].email]);
+            const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
+            await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
+                if (result) {
+                    res.json(user.rows[0]);
+                } else {
+                    res.json("Password salah.");
+                }
+            });
+        } 
     } catch (err) {
-        console.error(err.message);
+        res.json("Username tidak ditemukan.")
     }
 })
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Form from './components/Form';
 import Admin from './components/Admin'

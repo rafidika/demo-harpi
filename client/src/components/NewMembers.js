@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
 import Bukti from './Bukti'
+import '../styles/admin.css'
 
 const NewMembers = () => {
     const [members, setMembers] = useState("");
@@ -46,40 +47,39 @@ const NewMembers = () => {
 
     return (
         <Fragment>
-            <div className="container">
-                <br />
-                <h2>Anggota Baru</h2>
+            <div className="container-fluid" id="TabelSatu">
+                <p>Permohonan Anggota Baru</p>
                 <hr />
                 {members ? (
-                        <table className="table">
+                        <table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>No. HP</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>Domisili</th>
-                                    <th>Bukti Transfer</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">No. HP</th>
+                                    <th scope="col">Tanggal Lahir</th>
+                                    <th scope="col">Domisili</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {members.map(member => (
                                     (!member.verified) && (
                                         <tr key={member.id}>
-                                            <td>{member.nama}</td>
-                                            <td>{member.email}</td>
-                                            <td>{member.hp}</td>
-                                            <td>{member.tanggal.split("T")[0]}</td>
-                                            <td>{member.domisili}</td>
+                                            <td className="nama">{member.nama}</td>
+                                            <td className="email">{member.email}</td>
+                                            <td className="tanggal">{member.hp}</td>
+                                            <td className="tanggal">{member.tanggal.split("T")[0]}</td>
+                                            <td className="domisili">{member.domisili}</td>
                                             <td>
                                                 <Bukti img={member.buktitrf} />
                                                 {/* <p>{member.buktitrf}</p> */}
                                             </td>
                                             <td>
                                                 <button 
-                                                    className="btn btn-primary" 
+                                                    className="verifikasi" 
                                                     onClick={() => verifMember(member.id)}>
                                                         Verfikasi
                                                 </button>
@@ -87,7 +87,7 @@ const NewMembers = () => {
                                             </td>
                                             <td>
                                                 <button 
-                                                    className="btn btn-danger" 
+                                                    className="hapus" 
                                                     onClick={() => deleteMember(member.id)}>
                                                         Hapus
                                                 </button>

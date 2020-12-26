@@ -1,5 +1,7 @@
 import Axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
+import 'font-awesome/css/font-awesome.min.css';
+import '../styles/admin.css'
 
 function MemberData() {
     const [members, setMembers] = useState("");
@@ -24,30 +26,33 @@ function MemberData() {
 
     return (
         <Fragment>
-            <div className="container">
-                <br />
-                <h2>Daftar Anggota</h2>
+            <div className="container-fluid" id="TabelDua">
+                <p>Daftar Anggota</p>
                 <hr />
                 {members ? (
-                        <table className="table">
+                        <table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>No. HP</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>Domisili</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">No. HP</th>
+                                    <th scope="col">Tanggal Lahir</th>
+                                    <th scope="col">Domisili</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {members.map(member => (
                                     (member.verified) && (
                                         <tr key={member.id}>
-                                            <td>{member.nama}</td>
-                                            <td>{member.email}</td>
-                                            <td>{member.hp}</td>
-                                            <td>{member.tanggal.split("T")[0]}</td>
-                                            <td>{member.domisili}</td>
+                                            <td className="nama">{member.nama}</td>
+                                            <td className="email">{member.email}</td>
+                                            <td className="nohp">{member.hp}</td>
+                                            <td className="tanggal">{member.tanggal.split("T")[0]}</td>
+                                            <td className="domisili">{member.domisili}</td>
+                                            <td>
+                                                <i class="far fa-edit" id="edit"></i>
+                                            </td>
                                         </tr>
                                     )
                                 ))}

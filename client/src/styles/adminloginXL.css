@@ -1,0 +1,79 @@
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+#rest {
+    background-color: #477D46;
+}
+
+form {
+    margin: auto;
+    height: 50%;
+    width: 60%;
+}
+
+#title {
+    font-family: "Titillium Web";
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.col-xl-9 h3 {
+    font-size: 3.5em;
+    font-weight: 700;
+    color: white;
+    text-align: right;
+}
+
+.col-xl-9 p {
+    color: white;
+    font-size: 2em;
+    font-weight: 400;
+    text-align: right;
+}
+
+#username, #password {
+    border: 0.1em solid #c4c4c4;
+    border-radius: 0.5em;
+    font-size: 1em;
+    width: 100%;
+    height: 2em;
+}
+
+#copyright {
+    font-size: 0.5em;
+    text-align: center;
+}
+
+#masuk {
+    width: 100%;
+    background-color: #477D46;
+    color: white;
+    font-size: 1em;
+    font-family: "Titillium Web";
+    border-radius: 0.5em;
+    border: none;
+    padding: 0.25em 0;
+}
+
+#masuk:hover {
+    background-color: #2e542d;
+}
+
+label {
+    font-size: 0.9em;
+    padding-bottom: 0.5em;
+}
+
+#logo img {
+    width: 100%;
+    height: auto;
+    max-width: 120px;
+}
+
+.col-xl-9 {
+    position: relative;
+    padding-top: 65%;
+    padding-right: 5%;
+}

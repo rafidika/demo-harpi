@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Axios from 'axios'
+import '../styles/mainpageXL.css'
 
 const Form = () => {
     const [NamaLengkap, setNama] = useState("");
@@ -48,21 +49,23 @@ const Form = () => {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-7" id="rest">
-                    <div className="row">
-                        <div className="col-lg-3">
-
+        <div className="container-fluid">
+            <div className="row min-vw-100 min-vh-100">
+                <div className="col-xl-7" id="rest">
+                    <div class="row">
+                        <div class="col-3 col-xl-3" id="logo">
+                            <img src="/assets/logo-transparent.png" class="img-fluid" alt="Logo HARPI MELATI" />
                         </div>
-                        <div className="col-lg-9">
-
+                        <div class="col-9 col-xl-9" id="himpunan">
+                            <h3>HARPI MELATI</h3>
+                            <p>Himpunan Perias Pengantin Indonesia "MELATI"</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-5" id="form">
-                    <form onSubmit={onSubmitForm}>
-                        <p>Pendaftaran Anggota Baru</p>
+                {/* Form Pendaftaran */}
+                <div className="col-xl-5 d-flex justify-content-center align-items-center" id="form">
+                    <form onSubmit={onSubmitForm} className="form">
+                        <p id="title">Pendaftaran Anggota Baru</p>
                         <br />
                         <label htmlFor="nama">Nama Lengkap*</label>
                         <br />
@@ -118,12 +121,13 @@ const Form = () => {
                             <option value="Papua">Papua</option>
                             <option value="Papua Barat">Papua Barat</option>
                         </select>
-                        <br />
-                        <label htmlFor="buktitrf">Upload Bukti Transfer*</label>
-                        <br />
+                        <br /><br />
+                        <label htmlFor="buktitrf">Upload Bukti Transfer*</label><br />
                         <input type="file" accept="image/*" id="buktitrf" name="bukti" onChange={uploadImg}/>
-                        <br />
-                        <input type="submit" value="Kirim"/>
+                        <br /><br />
+                        <input type="submit" value="Kirim" id="kirim"/>
+                        <br /><br />
+                        <p id="copyright">Copyright 2020 Himpunan Perias Pengantin Indonesia "MELATI"</p>
                     </form>
                 </div>
             </div>

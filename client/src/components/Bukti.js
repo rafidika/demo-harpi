@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react'
+import '../styles/admin.css'
 
 function Bukti (img) {
     return (
         <Fragment>
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+           <button type="button" className="bukti" data-toggle="modal" data-target="#myModal">
             Lihat Bukti
             </button>
             <div class="modal" id="myModal">
