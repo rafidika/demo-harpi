@@ -1,13 +1,9 @@
-body {
-    font-family: "Montserrat";
-    font-weight: 400;
-}
-
 nav {
     background-color: #477D46;
+    box-shadow: 0 0.1em 0.5em #c7c7c7;
 }
 
-img {
+.logo-navbar {
     width: 100%;
     height: auto;
     max-width: 80px;
@@ -49,9 +45,11 @@ tr {
 
 #TabelSatu, #TabelDua {
     width: 90%;
+    font-family: "Montserrat";
+    font-weight: 400;
 }
 
-#TabelSatu p, #TabelDua p {
+.table-title {
     padding: 1em 0;
     font-size: 1.5em;
     font-weight: 700;

@@ -1,16 +1,20 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const pool = require('./regist_db');
 const fileUpload = require('express-fileupload');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const auth = require('./middleware/auth.js')
 const app = express();
 
-// Middleware
+
 app.use(cors());
 app.use(fileUpload());
 app.use(express.json());
 
 // Routes
+
 // Add new member
 app.post('/', async(req, res) => {
     try {
@@ -59,7 +63,7 @@ app.get('/admin/:id', async(req,res) => {
 })
 
 // Verify a member
-app.put('/admin/:id', async(req,res) => {
+app.put('/admin/verify/:id', async(req,res) => {
     try {
         const updateMember = await pool.query("UPDATE members SET buktitrf = NULL, verified = TRUE WHERE id = $1;", [req.params.id])
         res.send(console.log("Member verified."));
@@ -78,6 +82,20 @@ app.delete('/admin/:id', async(req, res) => {
     }
 })
 
+// Edit a member
+app.put('/admin/edit/:id', async(req,res) => {
+    try {
+        const { NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Id } = req.body;
+        const updateMember = await pool.query("UPDATE members SET nama = $1, email = $2, hp = $3, tanggal = $4, domisili = $5 WHERE id = $6;", [NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Id])
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+const generateAccessToken = (user) => {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: `10m`})
+}
+
 // Admin sign in
 app.post('/signin', async(req, res) => {
     try {
@@ -85,16 +103,18 @@ app.post('/signin', async(req, res) => {
         if (admin) {
             const user = await pool.query("SELECT * FROM login WHERE email = $1", [admin.rows[0].email]);
             const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
+            // await Promise.all([user, hash]);
             await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
                 if (result) {
-                    res.json(user.rows[0]);
+                    res.json({accessToken: generateAccessToken(admin.rows[0])});
                 } else {
-                    res.json("Password salah.");
+                    res.json("Login gagal");
                 }
             });
         } 
     } catch (err) {
-        res.json("Username tidak ditemukan.")
+        console.log(err.message);
+        res.json("Login gagal")
     }
 })
 
@@ -110,6 +130,15 @@ app.post('/45jPyQvLRE', async (req, res) => {
         res.status(500).send(console.log("Something went wrong"));
     }
 })
+
+// app.post('/signin', (req, res) => {
+//     try {
+//         const refresh = jwt.sign(req.body, process.env.REFRESH_TOKEN_SECRET)
+//         res.json({accessToken: generateAccessToken(req.body), refreshToken: refresh, user: req.body});
+//     } catch (err) {
+//         res.json(err.message);
+//     }
+// })
 
 app.listen(8080, () => {
     console.log("Listening on port 8080...");

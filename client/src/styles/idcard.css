@@ -1,0 +1,130 @@
+.container-id-card {
+    /* Rectangle 30 */
+    position: absolute;
+    width: 1629px;
+    height: 988px;
+    /* left: 405px;
+    top: 248px; */
+ 
+    background: white;
+    border: 5px solid #E5E5E5;
+    border-radius: 64px;
+ 
+ 
+ }
+ 
+ .header-id-card {
+     height: 263px;
+     background: #477D46;
+     border-radius: 60px 60px 0 0;
+ }
+ 
+ .logo-white-id {
+     position: absolute;
+     width: 170px;
+     height: 183px;
+     left: 175px;
+     top: 50px;
+ }
+ 
+ .title-id-card {
+     position: absolute;
+     width: 1157px;
+     height: 67px;
+     left: 400px;
+     top: 100px;
+ 
+     font-family: Montserrat;
+     font-style: normal;
+     font-weight: 600;
+     font-size: 55px;
+     line-height: 67px;
+     /* identical to box height */
+     color: #FFFFFF;
+ 
+ }
+ 
+ .number-id-card {
+     position: absolute;
+     width: 770px;
+     height: 84px;
+     left: 195px;
+     top: 400px;
+ 
+     font-family: Titillium Web;
+     font-style: normal;
+     font-weight: 600;
+     font-size: 70px;
+     line-height: 25px;
+     /* identical to box height */
+ 
+ 
+     color: #477D46;
+ }
+ 
+ .nama-id-card {
+     /* Nama : Nabelanita Utami */
+     position: absolute;
+     width: 750px;
+     height: 84px;
+     left: 195px;
+     top: 519px;
+ 
+     font-family: Titillium Web;
+     font-style: normal;
+     font-weight: 600;
+     font-size: 70px;
+     line-height: 84px;
+     /* identical to box height */
+     color: #477D46;
+ }
+ 
+ .nohp-id-card {
+     /* No. HP : 08567265625 */
+     position: absolute;
+     width: 750px;
+     height: 84px;
+     left: 195px;
+     top: 632px;
+ 
+     font-family: Titillium Web;
+     font-style: normal;
+     font-weight: 600;
+     font-size: 70px;
+     line-height: 150px;
+     /* identical to box height */
+     color: #477D46;
+ }
+ 
+ .rectangle-id-card {
+     /* Rectangle 31 */
+     position: absolute;
+     width: 336px;
+     height: 336px;
+     left: 1135px;
+     top: 384px;
+ 
+     background: #C4C4C4;
+ }
+ 
+ .date-id-card {
+     /* Bergabung pada 28 Desember 2020 */
+ 
+ 
+     position: absolute;
+     width: 372px;
+     height: 37px;
+     left: 1120px;
+     top: 774px;
+ 
+     font-family: Titillium Web;
+     font-style: normal;
+     font-weight: 600;
+     font-size: 24px;
+     line-height: 37px;
+     /* identical to box height */
+ 
+ 
+     color: #477D46;
+ 
+ }

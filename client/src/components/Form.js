@@ -14,15 +14,6 @@ const Form = () => {
     const onSubmitForm = async (e) => {
         e.preventDefault();
         try {
-            // const body = { NamaLengkap, Email, TanggalLahir, Domisili };
-            // console.log(body);
-            // const response = await fetch("http://localhost:8080/", {
-            //     method: "POST",
-            //     headers: {"Content-Type":"application/json"},
-            //     body: JSON.stringify(body)
-            // });
-
-            // console.log(response);
             const formData = new FormData();
             formData.append('Img', Img);
             formData.append('ImgName', ImgName);
@@ -54,11 +45,11 @@ const Form = () => {
                 <div className="col-xl-7" id="rest">
                     <div class="row">
                         <div class="col-3 col-xl-3" id="logo">
-                            <img src="/assets/logo-transparent.png" class="img-fluid" alt="Logo HARPI MELATI" />
+                            <img src="/assets/logo-transparent.png" class="img-fluid logo-main-page" alt="Logo HARPI MELATI" />
                         </div>
                         <div class="col-9 col-xl-9" id="himpunan">
-                            <h3>HARPI MELATI</h3>
-                            <p>Himpunan Perias Pengantin Indonesia "MELATI"</p>
+                            <h3 className="text-huge">HARPI MELATI</h3>
+                            <p className="text-huge">Himpunan Perias Pengantin Indonesia "MELATI"</p>
                         </div>
                     </div>
                 </div>

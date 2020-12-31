@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
-import 'font-awesome/css/font-awesome.min.css';
 import '../styles/admin.css'
+import EditMember from './EditMember';
 
 function MemberData() {
     const [members, setMembers] = useState("");
@@ -27,7 +27,7 @@ function MemberData() {
     return (
         <Fragment>
             <div className="container-fluid" id="TabelDua">
-                <p>Daftar Anggota</p>
+                <p className="table-title">Daftar Anggota</p>
                 <hr />
                 {members ? (
                         <table className="table table-borderless">
@@ -51,7 +51,7 @@ function MemberData() {
                                             <td className="tanggal">{member.tanggal.split("T")[0]}</td>
                                             <td className="domisili">{member.domisili}</td>
                                             <td>
-                                                <i class="far fa-edit" id="edit"></i>
+                                                <EditMember data={member}/>
                                             </td>
                                         </tr>
                                     )

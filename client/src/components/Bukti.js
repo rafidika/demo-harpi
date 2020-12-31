@@ -4,10 +4,10 @@ import '../styles/admin.css'
 function Bukti (img) {
     return (
         <Fragment>
-           <button type="button" className="bukti" data-toggle="modal" data-target="#myModal">
+           <button type="button" className="bukti" data-toggle="modal" data-target="#buktiTrf">
             Lihat Bukti
             </button>
-            <div class="modal" id="myModal">
+            <div class="modal" id="buktiTrf">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

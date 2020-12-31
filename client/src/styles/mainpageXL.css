@@ -51,6 +51,7 @@
 #copyright {
     font-size: 0.5em;
     text-align: center;
+    opacity: 50%;
 }
 
 #kirim {
@@ -73,7 +74,7 @@ label {
     margin-bottom: 0.1em;
 }
 
-#logo img {
+.logo-main-page {
     width: 100%;
     height: auto;
     max-width: 120px;
@@ -83,4 +84,8 @@ label {
     position: relative;
     padding-top: 65%;
     padding-right: 5%;
+}
+
+.huge-text {
+    padding-right: 0.5em;
 }

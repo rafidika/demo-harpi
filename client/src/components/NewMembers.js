@@ -24,7 +24,7 @@ const NewMembers = () => {
         let verifyMember = members[elementPos];
         verifyMember.verified = true;
         try {
-            await Axios.put(`http://localhost:8080/admin/${verif}`, verifyMember)
+            await Axios.put(`http://localhost:8080/admin/verify/${verif}`, verifyMember)
             .then(window.location.href = "/admin");
         } catch (err) {
             console.log(err.message);
@@ -48,7 +48,7 @@ const NewMembers = () => {
     return (
         <Fragment>
             <div className="container-fluid" id="TabelSatu">
-                <p>Permohonan Anggota Baru</p>
+                <p className="table-title">Permohonan Anggota Baru</p>
                 <hr />
                 {members ? (
                         <table className="table table-borderless">
@@ -75,7 +75,6 @@ const NewMembers = () => {
                                             <td className="domisili">{member.domisili}</td>
                                             <td>
                                                 <Bukti img={member.buktitrf} />
-                                                {/* <p>{member.buktitrf}</p> */}
                                             </td>
                                             <td>
                                                 <button 

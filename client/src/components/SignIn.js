@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import '../styles/adminloginXL.css'
-import LoginFail from './LoginFail';
+import Alert from './Alert';
 
 export default function SignIn( {onRouteChange} ) {
     const [success, setSuccess] = useState("init");
     const [Username, setUsername] = useState("");
     const [Password, setPassword] = useState("");
-    const [Alert, setAlert] = useState({show: false, msg: ""})
+    const [alert, setAlert] = useState({show: false, msg: "", type: ""})
 
     const signIn = async (e) => {
         e.preventDefault();
@@ -21,12 +21,13 @@ export default function SignIn( {onRouteChange} ) {
                     "Content-Type":"multipart/form-data"
                 }
             })
-            .then(user => {
-                if (user.data.id) {
+            .then(res => {
+                if (res) {
                     setSuccess("init");
+                    localStorage.setItem("token", JSON.stringify(res.data.accessToken));
                     onRouteChange(true);
                 } else {
-                    setAlert({show: true, msg: user.data})
+                    showAlert(true, res.data, "danger")
                 }
             })
         } catch (err) {
@@ -34,32 +35,22 @@ export default function SignIn( {onRouteChange} ) {
         }
     }
 
-    const showAlert = (show = false, msg = "") => {
-        setAlert({show: show, msg: msg})
+    const showAlert = (show = false, msg = "", type="") => {
+        setAlert({show, msg, type})
     }
-
-    // const isSignedIn = valid => {
-    //     if (valid === "success") {
-    //         setSuccess("init");
-    //         onRouteChange(true);
-    //     } else {
-    //         setAlert({show: true, msg})
-    //     }
-    // }
-
 
     return (
         <div className="container-fluid">
             <div className="row min-vw-100 min-vh-100">
                 {/* Green thingy */}
-                <div class="col-xl-7" id="rest">
-                    <div class="row">
-                        <div class="col-3 col-xl-3" id="logo">
-                            <img src="assets/logo-transparent.png" class="img-fluid" alt="Logo HARPI MELATI"/>
+                <div className="col-xl-7" id="rest">
+                    <div className="row">
+                        <div className="col-3 col-xl-3" id="logo">
+                            <img src="assets/logo-transparent.png" className="img-fluid logo-main-page" alt="Logo HARPI MELATI"/>
                         </div>
-                        <div class="col-9 col-xl-9" id="himpunan">
-                            <h3>HARPI MELATI</h3>
-                            <p>Himpunan Perias Pengantin Indonesia "MELATI"</p>
+                        <div className="col-9 col-xl-9" id="himpunan">
+                            <h3 className="huge-text">HARPI MELATI</h3>
+                            <p className="huge-text">Himpunan Perias Pengantin Indonesia "MELATI"</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +59,7 @@ export default function SignIn( {onRouteChange} ) {
                     <form onSubmit={signIn}>
                         <p id="title">Masuk ke Halaman Admin</p>
                         <br /><br />
-                        {Alert.show && <LoginFail msg={Alert.msg} removeAlert={showAlert} />}
+                        {alert.show && <Alert msg={alert.msg} type={alert.type} removeAlert={showAlert}/>}
                         <label htmlFor="username">Username</label>
                         <br />
                         <input type="text" name="Username" required id="username" value={Username} onChange={e => setUsername(e.target.value)}/>
