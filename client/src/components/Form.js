@@ -118,7 +118,7 @@ const Form = () => {
                         <br /><br />
                         <input type="submit" value="Kirim" id="kirim"/>
                         <br /><br />
-                        <p id="copyright">Copyright 2020 Himpunan Perias Pengantin Indonesia "MELATI"</p>
+                        <p id="copyright">Copyright 2021 Himpunan Perias Pengantin Indonesia "MELATI"</p>
                     </form>
                 </div>
             </div>

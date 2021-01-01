@@ -11,7 +11,11 @@ const NewMembers = () => {
             // const response = await fetch("http://localhost:8080/admin");
             // const jsonData = await response.json();
             // setMembers(jsonData);
-            await Axios.get("http://localhost:8080/admin")
+            await Axios.get("http://localhost:8080/admin", {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
             .then(res => {
                 setMembers(res.data);
             })
@@ -24,7 +28,11 @@ const NewMembers = () => {
         let verifyMember = members[elementPos];
         verifyMember.verified = true;
         try {
-            await Axios.put(`http://localhost:8080/admin/verify/${verif}`, verifyMember)
+            await Axios.put(`http://localhost:8080/admin/verify/${verif}`, verifyMember, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
             .then(window.location.href = "/admin");
         } catch (err) {
             console.log(err.message);

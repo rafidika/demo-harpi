@@ -13,6 +13,10 @@ export default function EditMember(data) {
     const [Domisili, setDomisili] = useState(data.data.domisili);
     const [alert, setAlert] = useState({show: false, msg: "", type: ""})
 
+    const refreshWindow = () => {
+        window.location.href = "/admin";
+    }
+
     const onSubmitEdit = async (e) => {
         e.preventDefault();
         try {
@@ -24,8 +28,13 @@ export default function EditMember(data) {
             editData.append('Email', Email);
             editData.append('NamaLengkap', NamaLengkap);
 
-            await Axios.put(`http://localhost:8080/admin/edit/${data.data.id}`, editData)
-            .then(showAlertEdit(true, "Data berhasil diedit.","success"))
+            await Axios.put(`http://localhost:8080/admin/edit/${data.data.id}`, editData, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
+            // .then(showAlertEdit(true, "Data berhasil diedit.","success"))
+            .then(window.location.href = "/admin")
         } catch (err) {
             console.log(err.message);
         }
@@ -33,7 +42,11 @@ export default function EditMember(data) {
 
     const deleteMember = async (id) => {
         try {
-           await Axios.delete(`http://localhost:8080/admin/${id}`)
+           await Axios.delete(`http://localhost:8080/admin/${id}`, {
+            headers: {
+                Authorization: localStorage.getItem("token")
+            }
+        })
            .then(window.location.href = "/admin");
         } catch (err) {
             console.log(err.message);
@@ -42,10 +55,6 @@ export default function EditMember(data) {
 
     const showAlertEdit = (show = false, msg = "", type = "") => {
         setAlert({show, msg, type})
-    }
-
-    const refreshWindow = () => {
-        window.location.href = "/admin";
     }
 
     return (
@@ -65,7 +74,7 @@ export default function EditMember(data) {
                         </div>
                         <div class="modal-body">
                         {alert.show && <Alert msg={alert.msg} type={alert.type} removeAlert={showAlertEdit}/>}
-                            <form onSubmit={onSubmitEdit}>
+                            <form>
                                 <label htmlFor="nama">Nama Lengkap*</label>
                                 <br />
                                 <input type="text" required name="NamaLengkap" id="nama" value={NamaLengkap} onChange={e => setNama(e.target.value)}/>
@@ -121,12 +130,13 @@ export default function EditMember(data) {
                                     <option value="Papua Barat">Papua Barat</option>
                                 </select>
                                 <br /><br />
-                                <input type="submit" value="Edit" id="kirim"/>
+                                {/* <input type="submit" value="Edit" id="kirim"/> */}
                                 <br /><br />
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal"  onClick={() => deleteMember(data.data.id)}>Hapus Anggota</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal"  onClick={onSubmitEdit}>Simpan</button>
                         </div>
                     </div>
                 </div>

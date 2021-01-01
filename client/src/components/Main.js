@@ -15,7 +15,7 @@ export default function Main( {onRouteChange} ) {
                 <br />
                 <MemberData />
                 <br /><br /><br /><br />
-                <p id="copyright">Copyright 2020 Himpunan Perias Pengantin Indonesia "MELATI"</p>
+                <p id="copyright">Copyright 2021 Himpunan Perias Pengantin Indonesia "MELATI"</p>
                 <br />
             </div> 
             : onRouteChange

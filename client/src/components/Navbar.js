@@ -21,9 +21,9 @@ export default function Navbar({ onRouteChange }) {
                 </span>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        {/* <li class="nav-item">
                             <a href="#" class="nav-link" id="pengaturan">Pengaturan</a>
-                        </li>
+                        </li> */}
                         <li class="nav-item">
                             <a href="" class="nav-link" id="keluar" onClick={() => signOut()}>Keluar</a>
                         </li>

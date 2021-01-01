@@ -11,7 +11,11 @@ function MemberData() {
             // const response = await fetch("http://localhost:8080/admin");
             // const jsonData = await response.json();
             // setMembers(jsonData);
-            await Axios.get("http://localhost:8080/admin")
+            await Axios.get("http://localhost:8080/admin", {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
             .then(res => {
                 setMembers(res.data);
             })

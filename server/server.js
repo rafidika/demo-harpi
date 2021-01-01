@@ -5,7 +5,7 @@ const pool = require('./regist_db');
 const fileUpload = require('express-fileupload');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const auth = require('./middleware/auth.js')
+const auth = require('./auth.js')
 const app = express();
 
 
@@ -41,7 +41,7 @@ app.post('/', async(req, res) => {
 });
 
 // Add members list
-app.get('/admin', async(req, res) => {
+app.get('/admin', auth,  async(req, res) => {
     try {
         const allMembers = await pool.query("SELECT * FROM members;");
         res.send(allMembers.rows);
@@ -51,7 +51,7 @@ app.get('/admin', async(req, res) => {
 })
 
 // Get a member
-app.get('/admin/:id', async(req,res) => {
+app.get('/admin/:id', auth, async(req,res) => {
     try {
         const { id } = req.params;
         const members = await pool.query("SELECT * FROM members WHERE id = $1;", [id]);
@@ -63,7 +63,7 @@ app.get('/admin/:id', async(req,res) => {
 })
 
 // Verify a member
-app.put('/admin/verify/:id', async(req,res) => {
+app.put('/admin/verify/:id', auth, async(req,res) => {
     try {
         const updateMember = await pool.query("UPDATE members SET buktitrf = NULL, verified = TRUE WHERE id = $1;", [req.params.id])
         res.send(console.log("Member verified."));
@@ -73,7 +73,7 @@ app.put('/admin/verify/:id', async(req,res) => {
 })
 
 // Delete a member
-app.delete('/admin/:id', async(req, res) => {
+app.delete('/admin/:id', auth, async(req, res) => {
     try {
         const deleteMember = await pool.query("DELETE FROM members WHERE id = $1", [req.params.id]);
         res.send(console.log("Member deleted."));
@@ -83,7 +83,7 @@ app.delete('/admin/:id', async(req, res) => {
 })
 
 // Edit a member
-app.put('/admin/edit/:id', async(req,res) => {
+app.put('/admin/edit/:id', auth, async(req,res) => {
     try {
         const { NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Id } = req.body;
         const updateMember = await pool.query("UPDATE members SET nama = $1, email = $2, hp = $3, tanggal = $4, domisili = $5 WHERE id = $6;", [NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Id])

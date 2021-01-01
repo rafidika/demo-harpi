@@ -24,7 +24,7 @@ export default function SignIn( {onRouteChange} ) {
             .then(res => {
                 if (res) {
                     setSuccess("init");
-                    localStorage.setItem("token", JSON.stringify(res.data.accessToken));
+                    localStorage.setItem("token", res.data.accessToken);
                     onRouteChange(true);
                 } else {
                     showAlert(true, res.data, "danger")
