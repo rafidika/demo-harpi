@@ -8,7 +8,8 @@ CREATE TABLE members (
     tanggal DATE,
     domisili TEXT,
     buktitrf TEXT,
-    verified BOOLEAN
+    verified BOOLEAN,
+    idcard TEXT
 );
 
 CREATE TABLE admins (

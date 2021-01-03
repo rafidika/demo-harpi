@@ -23,7 +23,10 @@ const Form = () => {
             formData.append('Email', Email);
             formData.append('NamaLengkap', NamaLengkap);
             formData.append('Verified', false);
+            formData.append('IdCard', "not yet verified");
 
+            console.log(formData);
+            
             await Axios.post('http://localhost:8080/', formData, {
                 headers: {
                     "Content-Type":"multipart/form-data"

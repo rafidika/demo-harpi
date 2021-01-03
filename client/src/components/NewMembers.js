@@ -1,7 +1,10 @@
 import Axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
 import Bukti from './Bukti'
+// import { generateIdCard, IdCardModal } from './IdCardModal'
 import '../styles/admin.css'
+import IdCardModal from './IdCardModal';
+import generateIdCard from './generateIdCard';
 
 const NewMembers = () => {
     const [members, setMembers] = useState("");
@@ -27,13 +30,14 @@ const NewMembers = () => {
         const elementPos = members.map(member => member.id).indexOf(verif);
         let verifyMember = members[elementPos];
         verifyMember.verified = true;
+        console.log(generateIdCard(verif));
         try {
             await Axios.put(`http://localhost:8080/admin/verify/${verif}`, verifyMember, {
                 headers: {
                     Authorization: localStorage.getItem("token")
                 }
             })
-            .then(window.location.href = "/admin");
+            // .then(window.location.href = "/admin");
         } catch (err) {
             console.log(err.message);
         }
@@ -49,12 +53,22 @@ const NewMembers = () => {
         }
     }
 
+    // const imgUrl = (idImg, img) => {
+    //     const elementPos = members.map(member => member.id).indexOf(idImg);
+    //     let idCardMember = members[elementPos];
+    //     idCardMember.idcard = img;
+    //     const newMemb = members;
+    //     newMemb[elementPos] = idCardMember;
+    //     setMembers(newMemb);
+    // }
+
     useEffect(() => {
         getMembers();
     }, []);
 
     return (
         <Fragment>
+            {/* <IdCard id={1} /> */}
             <div className="container-fluid" id="TabelSatu">
                 <p className="table-title">Permohonan Anggota Baru</p>
                 <hr />
@@ -69,6 +83,7 @@ const NewMembers = () => {
                                     <th scope="col">Domisili</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
+                                    {/* <th scope="col"></th> */}
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -85,6 +100,9 @@ const NewMembers = () => {
                                                 <Bukti img={member.buktitrf} />
                                             </td>
                                             <td>
+                                                <IdCardModal data={member}/>
+                                            </td>
+                                            <td>
                                                 <button 
                                                     className="verifikasi" 
                                                     onClick={() => verifMember(member.id)}>
@@ -99,6 +117,7 @@ const NewMembers = () => {
                                                         Hapus
                                                 </button>
                                             </td>
+                                            {/* <IdCard id={member.id} imgUrl={imgUrl} /> */}
                                         </tr>
                                     )
                                 ))}

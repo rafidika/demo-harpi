@@ -6,6 +6,7 @@ const fileUpload = require('express-fileupload');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require('./auth.js')
+const fs = require('fs');
 const app = express();
 
 
@@ -26,12 +27,12 @@ app.post('/', async(req, res) => {
                     return res.status(500).send(err);
                 }
             })
-            const { NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified } = req.body;
+            const { NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified, IdCard } = req.body;
             const path = `/uploads/${file.name}`;
             // await pool.query("SELECT * FROM members", function(err, result) {
             //     console.log(result);
             // });
-            await pool.query("INSERT INTO members (nama, email, hp, tanggal, domisili, buktitrf, verified) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",[NamaLengkap, Email, NoHp, TanggalLahir, Domisili, path, Verified]);
+            await pool.query("INSERT INTO members (nama, email, hp, tanggal, domisili, buktitrf, verified, idcard) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",[NamaLengkap, Email, NoHp, TanggalLahir, Domisili, path, Verified, IdCard]);
         } else {
             res.status(400).send(console.log("No file uploaded!"));
         }
@@ -65,7 +66,8 @@ app.get('/admin/:id', auth, async(req,res) => {
 // Verify a member
 app.put('/admin/verify/:id', auth, async(req,res) => {
     try {
-        const updateMember = await pool.query("UPDATE members SET buktitrf = NULL, verified = TRUE WHERE id = $1;", [req.params.id])
+        console.log(req.body);
+        const updateMember = await pool.query("UPDATE members SET buktitrf = NULL, verified = TRUE, idcard = $1 WHERE id = $2;", [req.params.idcard, req.params.id])
         res.send(console.log("Member verified."));
     } catch (err) {
         console.error(err.message);
@@ -77,6 +79,28 @@ app.delete('/admin/:id', auth, async(req, res) => {
     try {
         const deleteMember = await pool.query("DELETE FROM members WHERE id = $1", [req.params.id]);
         res.send(console.log("Member deleted."));
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+// Create Id Card for a member
+app.put('/admin/add-id-card/:id', auth, async(req,res) => {
+    try {
+        const { Verified, IdCard, NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Id } = req.body;
+        // var base64Data = IdCard.replace(/^data:image\/png;base64,/, "");
+        // const path = `/uploads/idcard-${Id}.png`;
+        // require("fs").writeFile(path, base64Data, 'base64', function(err) {
+        //     console.log(err.message);
+        // });
+        var img = IdCard.replace(/^data:image\/\w+;base64,/, "");
+        const path = `${__dirname}/../client/public/uploads/id-card-${Id}.png`;
+        fs.writeFile(path, img, 'base64', function(err) {
+            if (err) {
+                return err.message;
+            }
+        });
+        const updateMember = await pool.query("UPDATE members SET nama = $1, email = $2, hp = $3, tanggal = $4, domisili = $5, verified= $6, idcard = $7 WHERE id = $8;", [NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified, path, Id])
     } catch (err) {
         console.error(err.message);
     }

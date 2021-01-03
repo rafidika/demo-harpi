@@ -70,7 +70,7 @@ export default function SignIn( {onRouteChange} ) {
                         <br /><br />
                         <input type="submit" value="Masuk" id="masuk"/>
                         <br /><br />
-                        <p id="copyright">Copyright 2020 Himpunan Perias Pengantin Indonesia "MELATI"</p>
+                        <p id="copyright">Copyright 2021 Himpunan Perias Pengantin Indonesia "MELATI"</p>
                     </form>
                 </div>
             </div>
