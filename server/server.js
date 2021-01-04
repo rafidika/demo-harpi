@@ -9,7 +9,7 @@ const auth = require('./auth.js')
 const checkExpiry = require('./checkExpiry.js');
 const fs = require('fs');
 const app = express();
-
+const newID = require('./newID');
 
 app.use(cors());
 app.use(fileUpload());
@@ -33,7 +33,8 @@ app.post('/', async(req, res) => {
             // await pool.query("SELECT * FROM members", function(err, result) {
             //     console.log(result);
             // });
-            await pool.query("INSERT INTO members (nama, email, hp, tanggal, domisili, buktitrf, verified, idcard) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",[NamaLengkap, Email, NoHp, TanggalLahir, Domisili, path, Verified, IdCard]);
+            var id = newID();
+            await pool.query("INSERT INTO members (id, nama, email, hp, tanggal, domisili, buktitrf, verified, idcard) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",[id, NamaLengkap, Email, NoHp, TanggalLahir, Domisili, path, Verified, IdCard]);
         } else {
             res.status(400).send(console.log("No file uploaded!"));
         }

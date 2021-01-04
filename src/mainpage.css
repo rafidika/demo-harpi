@@ -1,0 +1,93 @@
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+#rest {
+    background-color: #477D46;
+}
+
+form {
+    margin: auto;
+    height: 80%;
+    width: 60%;
+}
+
+#title {
+    font-family: "Titillium Web";
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.col-xl-9 h3 {
+    font-size: 3.5em;
+    font-weight: 700;
+    color: white;
+    text-align: right;
+}
+
+.col-xl-9 p {
+    color: white;
+    font-size: 2em;
+    font-weight: 400;
+    text-align: right;
+}
+
+#nama, #email, #tanggal, #domisili, #telepon {
+    border: 0.1em solid black;
+    border-radius: 0.5em;
+    font-size: 1em;
+    width: 100%;
+    height: 2em;
+}
+
+#buktitrf {
+    border-color: black;
+    width: 100%;
+}
+
+#copyright {
+    font-size: 0.5em;
+    text-align: center;
+}
+
+#kirim {
+    width: 100%;
+    background-color: #477D46;
+    color: white;
+    font-size: 1em;
+    font-family: "Titillium Web";
+    border-radius: 0.5em;
+    border: 0.1em solid black;
+}
+
+label {
+    font-size: 0.9em;
+    padding-bottom: 0.5em;
+}
+
+#logo img {
+    width: 100%;
+    height: auto;
+    max-width: 120px;
+}
+
+.col-xl-9 {
+    position: relative;
+    padding-top: 65%;
+    padding-right: 5%;
+}
+
+.col-9 {
+    padding-top: 5%;
+}
+
+.col-9 h3 {
+    font-size: 0.9em;
+    text-align: left;
+}
+
+.col-9 p {
+    font-size: 0.6em;
+    text-align: left;
+}

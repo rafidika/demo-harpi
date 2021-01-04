@@ -65,7 +65,7 @@ function IdCardModal (data) {
                                     <img src="/assets/logo-white.png" alt="logo" class="logo-white-id" />
                                     <h4 class="title-id-card">Kartu Tanda Anggota HARPI Melati</h4>
                                 </div>
-                                <h4 class="number-id-card">ID               : 123456789101112</h4>
+                                <h4 class="number-id-card">ID               : {data.data.id}</h4>
                                 <h4 class="nama-id-card">Nama        : {data.data.nama}</h4>
                                 <h4 class="nohp-id-card">No. HP      : {data.data.hp}</h4>
                                 <div class="rectangle-id-card">
