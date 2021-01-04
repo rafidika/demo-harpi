@@ -7,7 +7,7 @@ import IdCardModal from './IdCardModal';
 import generateIdCard from './generateIdCard';
 
 const NewMembers = () => {
-    const [members, setMembers] = useState("");
+    const [members, setMembers] = useState();
     
     const getMembers = async () => {
         try {
@@ -20,7 +20,10 @@ const NewMembers = () => {
                 }
             })
             .then(res => {
-                setMembers(res.data);
+                if(!res.data.tokenexp) {
+                    console.log(res.data);
+                    setMembers(res.data);
+                }
             })
         } catch (err) {
             console.error(err.message);

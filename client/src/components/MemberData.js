@@ -17,7 +17,10 @@ function MemberData() {
                 }
             })
             .then(res => {
-                setMembers(res.data);
+                if(!res.data.tokenexp) {
+                    console.log(res.data);
+                    setMembers(res.data);
+                }
             })
         } catch (err) {
             console.error(err.message);

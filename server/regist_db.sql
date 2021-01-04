@@ -1,7 +1,7 @@
 CREATE DATABASE regist_db;
 
 CREATE TABLE members (
-    id SERIAL PRIMARY KEY,
+    id TEXT,
     nama TEXT,
     email TEXT,
     hp TEXT,

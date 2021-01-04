@@ -6,6 +6,7 @@ const fileUpload = require('express-fileupload');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require('./auth.js')
+const checkExpiry = require('./checkExpiry.js');
 const fs = require('fs');
 const app = express();
 
@@ -42,7 +43,7 @@ app.post('/', async(req, res) => {
 });
 
 // Add members list
-app.get('/admin', auth,  async(req, res) => {
+app.get('/admin', auth, async(req, res) => {
     try {
         const allMembers = await pool.query("SELECT * FROM members;");
         res.send(allMembers.rows);
@@ -88,14 +89,17 @@ app.delete('/admin/:id', auth, async(req, res) => {
 app.put('/admin/add-id-card/:id', auth, async(req,res) => {
     try {
         const { Verified, IdCard, NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Id } = req.body;
+
         // var base64Data = IdCard.replace(/^data:image\/png;base64,/, "");
         // const path = `/uploads/idcard-${Id}.png`;
         // require("fs").writeFile(path, base64Data, 'base64', function(err) {
         //     console.log(err.message);
         // });
-        var img = IdCard.replace(/^data:image\/\w+;base64,/, "");
-        const path = `${__dirname}/../client/public/uploads/id-card-${Id}.png`;
-        fs.writeFile(path, img, 'base64', function(err) {
+        // console.log(IdCard);
+        var img = IdCard.replace("data:image/png;base64,", "");
+        const path = `${__dirname}/../client/public/idcard/id-card-${Id}.png`;
+        var bitmap = new Buffer.from(img, 'base64');
+        fs.writeFileSync(path, bitmap, function(err) {
             if (err) {
                 return err.message;
             }
@@ -117,25 +121,25 @@ app.put('/admin/edit/:id', auth, async(req,res) => {
 })
 
 const generateAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: `10m`})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: `15m`})
 }
 
 // Admin sign in
 app.post('/signin', async(req, res) => {
     try {
         const admin = await pool.query("SELECT email FROM admins WHERE username = $1", [req.body.Username]);
-        if (admin) {
-            const user = await pool.query("SELECT * FROM login WHERE email = $1", [admin.rows[0].email]);
-            const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
-            // await Promise.all([user, hash]);
-            await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
-                if (result) {
-                    res.json({accessToken: generateAccessToken(admin.rows[0])});
-                } else {
-                    res.json("Login gagal");
-                }
-            });
-        } 
+
+        // const user = await pool.query("SELECT * FROM login WHERE email = $1", [admin.rows[0].email]);
+        const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
+        // await Promise.all([user, hash]);
+        await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
+            if (result) {
+                res.json({accessToken: generateAccessToken(admin.rows[0])});
+            } else {
+                res.json("Login gagal");
+            }
+        });
+    
     } catch (err) {
         console.log(err.message);
         res.json("Login gagal")

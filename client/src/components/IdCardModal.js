@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import '../styles/idcardnew.css'
 import '../styles/admin.css'
 import { saveAs } from 'file-saver'
@@ -12,31 +12,29 @@ function IdCardModal (data) {
     const [TanggalLahir, setTanggal] = useState(data.data.tanggal.split("T")[0]);
     const [Domisili, setDomisili] = useState(data.data.domisili);
     const [Verified, setVerified] = useState(data.data.verified);
-    const [IdCard, setIdCard] = useState();
     
     const generateIdCard = () => {
         var node = document.getElementById(`id-card-${data.data.id}`);
         domtoimage.toPng(node)
         .then(function (dataUrl) {
-            setIdCard(dataUrl)
+            saveIdToServer(dataUrl);
         })
-        .then(saveIdToServer())
         .catch(function (error) {
             console.error('oops, something went wrong!', error);
         });
     }
 
-    const saveIdToServer = async () => {
+    const saveIdToServer = async (imgSrc) => {
         const editData = new FormData();
         editData.append('Id', data.data.id);
-        editData.append('IdCard', IdCard);
+        editData.append('IdCard', imgSrc);
         editData.append('Verified', Verified);
         editData.append('Domisili', Domisili);
         editData.append('TanggalLahir', TanggalLahir);
         editData.append('NoHp', NoHp);
         editData.append('Email', Email);
         editData.append('NamaLengkap', NamaLengkap);
-
+        
         try {
             await Axios.put(`http://localhost:8080/admin/add-id-card/${data.data.id}`, editData, {
                 headers: {
@@ -47,6 +45,7 @@ function IdCardModal (data) {
             console.error(err.message);
         }
     }
+
 
     return (
         <Fragment>

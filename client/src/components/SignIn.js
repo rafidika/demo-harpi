@@ -22,7 +22,7 @@ export default function SignIn( {onRouteChange} ) {
                 }
             })
             .then(res => {
-                if (res) {
+                if (res.data.accessToken) {
                     setSuccess("init");
                     localStorage.setItem("token", res.data.accessToken);
                     onRouteChange(true);
