@@ -48,7 +48,11 @@ const NewMembers = () => {
 
     const deleteMember = async (id) => {
         try {
-           await Axios.delete(`http://localhost:8080/admin/${id}`)
+           await Axios.delete(`http://localhost:8080/admin/${id}`, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
            .then(setMembers(members.filter(member => member.id !== id)))
            .then(window.location.href = "/admin");
         } catch (err) {

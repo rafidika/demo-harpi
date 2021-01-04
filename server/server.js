@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const auth = require('./auth.js')
 const checkExpiry = require('./checkExpiry.js');
+const sendEmail = require('./email.js');
 const fs = require('fs');
 const app = express();
 const newID = require('./newID');
@@ -68,7 +69,6 @@ app.get('/admin/:id', auth, async(req,res) => {
 // Verify a member
 app.put('/admin/verify/:id', auth, async(req,res) => {
     try {
-        console.log(req.body);
         const updateMember = await pool.query("UPDATE members SET buktitrf = NULL, verified = TRUE, idcard = $1 WHERE id = $2;", [req.params.idcard, req.params.id])
         res.send(console.log("Member verified."));
     } catch (err) {
@@ -79,7 +79,7 @@ app.put('/admin/verify/:id', auth, async(req,res) => {
 // Delete a member
 app.delete('/admin/:id', auth, async(req, res) => {
     try {
-        const deleteMember = await pool.query("DELETE FROM members WHERE id = $1", [req.params.id]);
+        await pool.query("DELETE FROM members WHERE id = $1", [req.params.id]);
         res.send(console.log("Member deleted."));
     } catch (err) {
         console.error(err.message);
@@ -106,6 +106,7 @@ app.put('/admin/add-id-card/:id', auth, async(req,res) => {
             }
         });
         const updateMember = await pool.query("UPDATE members SET nama = $1, email = $2, hp = $3, tanggal = $4, domisili = $5, verified= $6, idcard = $7 WHERE id = $8;", [NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified, path, Id])
+        sendEmail(Email, NamaLengkap, path);
     } catch (err) {
         console.error(err.message);
     }
