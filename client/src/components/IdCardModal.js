@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
+import Alert from './Alert'
 import '../styles/idcardnew.css'
 import '../styles/admin.css'
 import { saveAs } from 'file-saver'
@@ -12,6 +13,7 @@ function IdCardModal (data) {
     const [TanggalLahir, setTanggal] = useState(data.data.tanggal.split("T")[0]);
     const [Domisili, setDomisili] = useState(data.data.domisili);
     const [Verified, setVerified] = useState(data.data.verified);
+    const [alert, setAlert] = useState({show: false, msg: "", type: ""})
     
     const generateIdCard = () => {
         var node = document.getElementById(`id-card-${data.data.id}`);
@@ -41,9 +43,28 @@ function IdCardModal (data) {
                     Authorization: localStorage.getItem("token")
                 }
             })
+            .then(verifMember(data.data))
         } catch (err) {
             console.error(err.message);
         }
+    }
+
+    const verifMember = async (verifyMember) => {
+        verifyMember.verified = true;
+        try {
+            await Axios.put(`http://localhost:8080/admin/verify/${verifyMember.id}`, verifyMember, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
+            // .then(window.location.href = "/admin");
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    const showAlertSend = (show = false, msg = "", type = "") => {
+        setAlert({show, msg, type})
     }
 
 
@@ -52,29 +73,30 @@ function IdCardModal (data) {
            <button type="button" className="bukti" data-toggle="modal" data-target={`#id-card-modal-${data.data.id}`}>
             Kartu Anggota
             </button>
-            <div class="modal" id={`id-card-modal-${data.data.id}`}>
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Kartu Anggota</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div className="modal" id={`id-card-modal-${data.data.id}`}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h4 className="modal-title">Kartu Anggota</h4>
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <div style={{'left' : '25px'}} class="modal-body">
-                            <div id={`id-card-${data.data.id}`} class="container-id-card">
-                                <div class="header-id-card">
-                                    <img src="/assets/logo-white.png" alt="logo" class="logo-white-id" />
-                                    <h4 class="title-id-card">Kartu Tanda Anggota HARPI Melati</h4>
+                        <div style={{'left' : '25px'}} className="modal-body">
+                            {alert.show && <Alert msg={alert.msg} type={alert.type} removeAlert={showAlertSend}/>}
+                            <div id={`id-card-${data.data.id}`} className="container-id-card">
+                                <div className="header-id-card">
+                                    <img src="/assets/logo-white.png" alt="logo" className="logo-white-id" />
+                                    <h4 className="title-id-card">Kartu Tanda Anggota HARPI Melati</h4>
                                 </div>
-                                <h4 class="number-id-card">ID               : {data.data.id}</h4>
-                                <h4 class="nama-id-card">Nama        : {data.data.nama}</h4>
-                                <h4 class="nohp-id-card">No. HP      : {data.data.hp}</h4>
-                                <div class="rectangle-id-card">
+                                <h4 className="number-id-card">ID               : {data.data.id}</h4>
+                                <h4 className="nama-id-card">Nama        : {data.data.nama}</h4>
+                                <h4 className="nohp-id-card">No. HP      : {data.data.hp}</h4>
+                                <div className="rectangle-id-card">
                                 </div>
-                                <h4 class="date-id-card">Bergabung pada 28 Desember 2020</h4>
+                                <h4 className="date-id-card">Bergabung pada 28 Desember 2020</h4>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" onClick={generateIdCard}>Kirim</button>
+                        <div className="modal-footer">
+                            <button type="button" className="kirim" onClick={generateIdCard}>Kirim</button>
                         </div>
                     </div>
                 </div>

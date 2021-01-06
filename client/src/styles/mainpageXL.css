@@ -74,18 +74,52 @@ label {
     margin-bottom: 0.1em;
 }
 
-.logo-main-page {
+#logo img {
     width: 100%;
     height: auto;
     max-width: 120px;
 }
 
-.col-xl-9 {
+#himpunan {
     position: relative;
     padding-top: 65%;
     padding-right: 5%;
 }
 
-.huge-text {
-    padding-right: 0.5em;
+@media screen and (max-width: 767px) {
+    #rest {
+        height: 70%;
+    }
+    #himpunan {
+        padding-top: 5%;
+    }
+    #himpunan h3 {
+        font-size: 0.9em;
+        text-align: left;
+    }
+    #himpunan p {
+        font-size: 0.6em;
+        text-align: left;
+    }
+    #form {
+        display: block !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    #rest {
+        height: 60%;
+    }
+    #himpunan {
+        padding-top: 5%;
+    }
+    #himpunan .text-huge {
+        text-align: left;
+    }
+    #logo img {
+        max-width: 200px;
+    }
+    #form {
+        display: block !important;
+    }
 }

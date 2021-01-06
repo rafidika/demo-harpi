@@ -12,7 +12,6 @@ export default function Register() {
         try {
             const adminData = new FormData();
             adminData.append('Nama', Nama);
-            adminData.append('Email', Email);
             adminData.append('Username', Username);
             adminData.append('Password', Password);
 
@@ -39,9 +38,6 @@ export default function Register() {
                         <br />
                         <input type="text" name="name" id="name" value={Nama} onChange={e => setNama(e.target.value)}/>
                         <br />
-                        <label htmlFor="email">Email</label>
-                        <br />
-                        <input type="text" name="email" id="email" value={Email} onChange={e => setEmail(e.target.value)}/>
                         <br />
                         <label htmlFor="username">Username</label>
                         <br />

@@ -2,6 +2,7 @@ import Axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react'
 import '../styles/admin.css'
 import EditMember from './EditMember';
+import Loading from './Loading';
 
 function MemberData() {
     const [members, setMembers] = useState("");
@@ -65,7 +66,7 @@ function MemberData() {
                                 ))}
                             </tbody>
                         </table>
-                ) : <h2>Loading...</h2>}
+                ) : <Loading />}
                 
             </div>
         </Fragment>

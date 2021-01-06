@@ -5,6 +5,7 @@ import Bukti from './Bukti'
 import '../styles/admin.css'
 import IdCardModal from './IdCardModal';
 import generateIdCard from './generateIdCard';
+import Loading from './Loading';
 
 const NewMembers = () => {
     const [members, setMembers] = useState();
@@ -29,22 +30,6 @@ const NewMembers = () => {
             console.error(err.message);
         }
     };
-    const verifMember = async (verif) => {
-        const elementPos = members.map(member => member.id).indexOf(verif);
-        let verifyMember = members[elementPos];
-        verifyMember.verified = true;
-        console.log(generateIdCard(verif));
-        try {
-            await Axios.put(`http://localhost:8080/admin/verify/${verif}`, verifyMember, {
-                headers: {
-                    Authorization: localStorage.getItem("token")
-                }
-            })
-            // .then(window.location.href = "/admin");
-        } catch (err) {
-            console.log(err.message);
-        }
-    }
 
     const deleteMember = async (id) => {
         try {
@@ -54,10 +39,15 @@ const NewMembers = () => {
                 }
             })
            .then(setMembers(members.filter(member => member.id !== id)))
-           .then(window.location.href = "/admin");
+           .then(getMembers());
         } catch (err) {
             console.log(err.message);
         }
+    }
+
+    const getOneMember = (id) => {
+        const elementPos = members.map(member => member.id).indexOf(id);
+        return members[elementPos];
     }
 
     // const imgUrl = (idImg, img) => {
@@ -111,14 +101,6 @@ const NewMembers = () => {
                                             </td>
                                             <td>
                                                 <button 
-                                                    className="verifikasi" 
-                                                    onClick={() => verifMember(member.id)}>
-                                                        Verfikasi
-                                                </button>
-
-                                            </td>
-                                            <td>
-                                                <button 
                                                     className="hapus" 
                                                     onClick={() => deleteMember(member.id)}>
                                                         Hapus
@@ -131,7 +113,7 @@ const NewMembers = () => {
                             </tbody>
                         </table>
                     
-                ) : <h2>Loading...</h2>}
+                ) : <Loading className="d-flex justify-content-center" />}
                 
             </div>
         </Fragment>

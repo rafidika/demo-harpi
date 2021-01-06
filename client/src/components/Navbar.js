@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/admin.css'
+import '../styles/navbar.css'
 
 export default function Navbar({ onRouteChange }) {
     const signOut = () => {
@@ -11,13 +11,13 @@ export default function Navbar({ onRouteChange }) {
         <nav class="navbar navbar-expand-lg navbar-light sticky-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="assets/logo-transparent.png" alt="Logo HARPI MELATI" className="logo-navbar"/>
+                    <img src="assets/logo-white.png" alt="Logo HARPI MELATI" className="logo-navbar"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <span class="navbar-text" id="text">
-                    HARPI MELATI | Halaman Admin
+                    Halaman Admin
                 </span>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">

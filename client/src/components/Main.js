@@ -48,11 +48,11 @@ export default function Main( {onRouteChange} ) {
                 {verified ? 
                 <div>
                     <Navbar onRouteChange={onRouteChange}/>
-                    <br /><br/>
+                    <br />
                     <NewMembers />
                     <br />
                     <MemberData />
-                    <br /><br /><br /><br />
+                    <br /><br /><br />
                     <p id="copyright">Copyright 2021 Himpunan Perias Pengantin Indonesia "MELATI"</p>
                     <br />
                 </div> 

@@ -106,7 +106,7 @@ app.put('/admin/add-id-card/:id', auth, async(req,res) => {
             }
         });
         const updateMember = await pool.query("UPDATE members SET nama = $1, email = $2, hp = $3, tanggal = $4, domisili = $5, verified= $6, idcard = $7 WHERE id = $8;", [NamaLengkap, Email, NoHp, TanggalLahir, Domisili, Verified, path, Id])
-        sendEmail(Email, NamaLengkap, path);
+        // sendEmail(Email, NamaLengkap, path);
     } catch (err) {
         console.error(err.message);
     }
@@ -129,14 +129,11 @@ const generateAccessToken = (user) => {
 // Admin sign in
 app.post('/signin', async(req, res) => {
     try {
-        const admin = await pool.query("SELECT email FROM admins WHERE username = $1", [req.body.Username]);
-
-        // const user = await pool.query("SELECT * FROM login WHERE email = $1", [admin.rows[0].email]);
-        const hash = await pool.query("SELECT hash FROM login WHERE email = $1", [admin.rows[0].email]);
+        const hash = await pool.query("SELECT hash FROM login WHERE username = $1", [req.body.Username]);
         // await Promise.all([user, hash]);
         await bcrypt.compare(req.body.Password, hash.rows[0].hash, function(err, result) {
             if (result) {
-                res.json({accessToken: generateAccessToken(admin.rows[0])});
+                res.json({accessToken: generateAccessToken({username: req.body.Username})});
             } else {
                 res.json("Login gagal");
             }
@@ -150,10 +147,10 @@ app.post('/signin', async(req, res) => {
 
 app.post('/45jPyQvLRE', async (req, res) => {
     try {
-        const { Nama, Username, Email } = req.body;
+        const { Nama, Username } = req.body;
         const hash = await bcrypt.hash(req.body.Password, 15);
-        await pool.query("INSERT INTO admins (name_adm, username, email) VALUES($1, $2, $3) RETURNING *",[Nama, Username, Email]);
-        await pool.query("INSERT INTO login (hash, email) VALUES($1, $2) RETURNING *",[hash, Email]);
+        await pool.query("INSERT INTO admins (name_adm, username) VALUES($1, $2) RETURNING *",[Nama, Username]);
+        await pool.query("INSERT INTO login (hash, username) VALUES($1, $2) RETURNING *",[hash, Email]);
         res.status(200).send(console.log("Registration success"));
     } catch (err) {
         console.error(err.message);

@@ -49,8 +49,8 @@ export default function SignIn( {onRouteChange} ) {
                             <img src="assets/logo-transparent.png" className="img-fluid logo-main-page" alt="Logo HARPI MELATI"/>
                         </div>
                         <div className="col-9 col-xl-9" id="himpunan">
-                            <h3 className="huge-text">HARPI MELATI</h3>
-                            <p className="huge-text">Himpunan Perias Pengantin Indonesia "MELATI"</p>
+                            <h3 className="text-huge">HARPI MELATI</h3>
+                            <p className="text-huge">Himpunan Perias Pengantin Indonesia "MELATI"</p>
                         </div>
                     </div>
                 </div>
