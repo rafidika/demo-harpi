@@ -47,7 +47,7 @@ export default function Main( {onRouteChange} ) {
             <div>
                 {verified ? 
                 <div>
-                    <Navbar onRouteChange={onRouteChange}/>
+                    <Navbar admin={true} onRouteChange={onRouteChange}/>
                     <br />
                     <NewMembers />
                     <br />

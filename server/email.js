@@ -5,8 +5,8 @@ const sendEmail = (email, nama, idCard) => {
         service: "gmail",
         host: "smtp.gmail.com",
         auth: {
-            user: "lanitaabel@gmail.com",
-            pass: "30105492"
+            user: process.env.EMAIL,
+            pass: process.env.PW
         }
     });
     

@@ -31,7 +31,7 @@ const Form = () => {
                 headers: {
                     "Content-Type":"multipart/form-data"
                 }
-            }).then(window.location.href = "http://localhost:3000/");
+            }).then(window.location.href = "http://localhost:3000/register-successful");
         } catch (err) {
             console.error(err.message)
         }

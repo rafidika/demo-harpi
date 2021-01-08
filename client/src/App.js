@@ -4,12 +4,14 @@ import Form from './components/Form';
 import Admin from './components/Admin'
 import SignIn from './components/SignIn';
 import Register from './components/Register'
+import Success from './components/Success'
 
 function App() {
   return (
     <React.Fragment>
       <Switch>
         {/* <Route path="/id" component={IdCard}/> */}
+        <Route path="/register-successful" component={Success}/>
         <Route path="/45jPyQvLRE" component={Register}/>
         <Route path="/signin" component={SignIn}/>
         <Route path="/admin" component={Admin}/>
