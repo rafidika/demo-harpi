@@ -4,9 +4,6 @@ import '../styles/success.css'
 
 
 export default function Success() {
-    const backToHomePage = () => {
-        window.location.href = "http://localhost:3000/"
-    }
     return (
         <div>
             <Navbar admin={false}/>
