@@ -1,0 +1,87 @@
+tr {
+    line-height: 1.75em;
+    border-bottom: 0.1em;
+    border-right: 0;
+    border-top: 0;
+    border-left: 0;
+    border-color:#d1d1d1;
+    border-style: solid;
+}
+
+#text {
+    width: 100%;
+}
+
+#TabelSatu, #TabelDua {
+    width: 90%;
+    font-family: "Montserrat";
+    font-weight: 400;
+}
+
+.table-title {
+    padding: 1em 0;
+    font-size: 1.5em;
+    font-weight: 700;
+    font-family: "Titillium Web";
+    color: #477D46;
+}
+
+td {
+    line-height: 2em;
+    font-size: 1em;
+}
+
+.bukti, .verifikasi, .hapus, .kirim {
+    /* border: none; */
+    padding: 0.1em 0.5em;
+    border-radius: 0.5em;
+    font-weight: 500;
+    transition-duration: 0.3s;
+}
+
+.bukti {
+    color: white;
+    background-color: #477D46;
+    border: 0.05em solid#477D46;
+}
+
+.bukti:hover {
+    background-color: white;
+    color: #477D46;
+    border-color: #477D46;
+    /* border: 0.1em solid black; */
+}
+
+.verifikasi, .kirim {
+    background-color: #477D46;
+    color: white;
+    border: 0.05em solid #477D46;
+}
+
+.verifikasi:hover {
+    background-color: white;
+    color: #477D46;
+    border-color: #477D46;
+    /* border: 00.1em solid #477D46; */
+}
+
+.kirim:hover {
+    background-color: white;
+    color: #477D46;
+    border-color: #477D46;
+    /* border: 00.1em solid #477D46; */
+}
+
+.hapus {
+    background-color: #BE1F1F;
+    color: white;
+    border: 0.05em solid #BE1F1F;
+    
+}
+
+.hapus:hover {
+    background-color: white;
+    color: #BE1F1F;
+    border-color: #BE1F1F;
+    /* border: 0.1em solid #BE1F1F; */
+}

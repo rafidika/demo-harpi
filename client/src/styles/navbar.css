@@ -1,0 +1,32 @@
+nav {
+    background-color: #477D46;
+    box-shadow: 0 0.1em 0.5em #c7c7c7;
+    height: 4em;
+}
+
+.logo-navbar {
+    margin-left: 1.5em;
+    width: 2em;
+    height: auto;
+    max-width: 80px;
+}
+
+#keluar, #pengaturan {
+    color: white;
+    font-size: 1em;
+    margin: 0 1em;
+}
+
+#keluar {
+    font-weight: 700;
+}
+
+#text {
+    color: white;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.navbar-collapse {
+    width: 0%;
+}
